@@ -49,10 +49,10 @@ app.post('/user/login', (req, res) => {
                 res.json({'token':token});
 
             }else{
-                res.json({'server_error': 'Invalid email address or password'});
+                res.json({'server_error': 'Wrong email address or password'});
             }
         }else{
-            res.json({'server_error': 'Invalid email address or password'});
+            res.json({'server_error': 'Wrong email address or password'});
         }
     })
     .catch(err => {
