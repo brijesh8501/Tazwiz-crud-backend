@@ -49,14 +49,14 @@ app.post('/user/login', (req, res) => {
                 res.json({'token':token});
 
             }else{
-                res.status(400).json({'server_error': 'Invalid email address or password'});
+                res.json({'server_error': 'Invalid email address or password'});
             }
         }else{
-            res.status(404).json({'server_error': 'Invalid email address or password'});
+            res.json({'server_error': 'Invalid email address or password'});
         }
     })
     .catch(err => {
-        res.status(500).json({'server_error': "Something went wrong"});
+        res.json({'server_error': "Something went wrong"});
     })
 })
 // select logged user prodile
@@ -71,11 +71,11 @@ app.get('/user/profile', (req, res) => {
         if(usr){
             res.json(usr)
         }else{
-            res.status(404).json({'server_error': "Something went wrong"});
+            res.json({'server_error': "Something went wrong"});
         }
     })
     .catch(err => {
-        res.status(500).json({'server_error': "Something went wrong"});
+        res.json({'server_error': "Something went wrong"});
     })
 })
 // logout
@@ -91,11 +91,11 @@ app.get('/user/logout', (req, res) => {
         if(usr){
             res.json(usr)
         }else{
-            res.status(404).json({'server_error': "Something went wrong"});
+            res.json({'server_error': "Something went wrong"});
         }
     })
     .catch(err => {
-        res.status(500).json({'server_error': "Something went wrong"});
+        res.json({'server_error': "Something went wrong"});
     })
 })
 app.post('/user/register', (req, res) => {
@@ -124,7 +124,7 @@ app.post('/user/register', (req, res) => {
                                         res.json({status: usr.email+' registered'});
                                     })
                                     .catch(err => {
-                                        res.status(500).json({'server_error': 'Something went wrong'});
+                                        res.json({'server_error': 'Something went wrong'});
                                     })
                             })
                     }else{
@@ -132,13 +132,13 @@ app.post('/user/register', (req, res) => {
                     }
                     })
                     .catch(err =>{
-                        res.status(500).json({'server_error': 'Soemthing went wrong'});
+                        res.json({'server_error': 'Soemthing went wrong'});
                     })
                 }else{
-                    res.status(400).json({'server_error': "Something went wrong"});
+                    res.json({'server_error': "Something went wrong"});
                 } 
             }else{
-                res.status(400).json({'server_error': "Something went wrong"});
+                res.json({'server_error': "Something went wrong"});
             } 
 })
 app.get('/:model', (req, res) => {
@@ -186,7 +186,7 @@ app.post('/:model/add', (req, res) => {
             if(isValid){
                 insertDataToDB(customer, req, res);
             }else{
-                res.status(400).json({'server_error': "Something went wrong"});
+                res.json({'server_error': "Something went wrong"});
             }
         }else if(dbModel === 'product'){
             // mandatory fields checks
@@ -198,11 +198,11 @@ app.post('/:model/add', (req, res) => {
             if(isValid){
                 insertDataToDB(product, req, res);
             }else{
-                res.status(400).json({'server_error': "Something went wrong"});
+                res.json({'server_error': "Something went wrong"});
             }
         }
     }else{
-        res.status(400).json({'server_error': "Something went wrong"});
+        res.json({'server_error': "Something went wrong"});
     } 
 });
 // udpate record by id
@@ -224,7 +224,7 @@ app.post('/:model/update/:id', (req, res) => {
                 updateDataToDB(customer, id, req, res);
             }else{
 
-                res.status(400).json({'server_error': "Something went wrong"});
+                res.json({'server_error': "Something went wrong"});
             }
             
         }else if(dbModel === 'product'){
@@ -237,11 +237,11 @@ app.post('/:model/update/:id', (req, res) => {
             if(isValid){
                 updateDataToDB(product, id, req, res);
             }else{
-                res.status(400).json({'server_error': "Something went wrong"});
+                res.json({'server_error': "Something went wrong"});
             }
         }
     }else{
-        res.status(400).json({'server_error': "Something went wrong"});
+        res.json({'server_error': "Something went wrong"});
     } 
    
 });
@@ -271,7 +271,7 @@ getSingleDataFromDB = (model, id, res) => {
         if(data){
             res.json(data);
         }else{
-            res.status(404).json({'server_error': 'Something went wrong'});
+            res.json({'server_error': 'Something went wrong'});
         }
 
     }).select('-__v');
@@ -286,7 +286,7 @@ insertDataToDB = (model, req, res) => {
                 res.json({'success': 'Submitted successfully'});
             })
             .catch(err =>{
-                res.status(500).json({'server_error': 'Failed to submit'});
+                res.json({'server_error': 'Failed to submit'});
             });
 
 }
@@ -307,7 +307,7 @@ updateDataToDB = (model, id, req, res) => {
                         res.json({'server_error': 'Failed to save changes'});
                     });
         }else{
-            res.status(404).json({'server_error': 'Something went wrong'});
+            res.json({'server_error': 'Something went wrong'});
         }
        
     });
@@ -320,7 +320,7 @@ deleteDataToDB = (model, id, res) => {
         if(!err){
             res.json({'success': 'Deleted successfully'});
         }else{
-            res.status(400).json({'server_error': 'Failed to delete record'});
+            res.json({'server_error': 'Failed to delete record'});
         }
     });
 
